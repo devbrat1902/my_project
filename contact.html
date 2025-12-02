@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Just For Kidz</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Sora:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="mainNav">
+        <div class="container-fluid">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <img src="tm-logo-mP4MB72vG2uwNJXG.avif" alt="Just For Kidz Logo"
+                        style="height: 50px; width: auto;">
+                </div>
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li class="dropdown">
+                        <a href="solutions.html" class="nav-link">Solutions <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="solutions.html">Programs</a>
+                            <a href="solutions.html">Extracurricular</a>
+                            <a href="franchise.html">Franchise</a>
+                        </div>
+                    </li>
+                    <li><a href="impact.html" class="nav-link">Impact</a></li>
+                    <li><a href="testimonials.html" class="nav-link">Testimonials</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li><a href="get-started.html" class="nav-link btn-primary">Get Started</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container-fluid">
+            <div class="section-header">
+                <h2>Let's Start Your Transformation</h2>
+                <p>Schedule a confidential consultation with our experts</p>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3>Our Centers</h3>
+                        <p>
+                            Just For Kidz<br>
+                            Multiple Centers in Mumbai<br>
+                            Serving Families Since 2010
+                        </p>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h3>Call Us</h3>
+                        <p>
+                            <strong>+91 75069 51113</strong><br>
+                            Mon - Fri: 7:30 AM - 5:30 PM IST<br>
+                            Admission Inquiries Welcome
+                        </p>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Email Us</h3>
+                        <p>
+                            <strong>support@justforkidz.in</strong><br>
+                            <strong>admissions@justforkidz.in</strong><br>
+                            Quick Response Guaranteed
+                        </p>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Operating Hours</h3>
+                        <p>
+                            Monday - Friday<br>
+                            7:30 AM - 5:30 PM IST<br>
+                            Special Hours Available
+                        </p>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contactForm">
+                    <h3>Enrollment Inquiry Form</h3>
+
+                    <div class="form-group">
+                        <input type="text" placeholder="Parent/Guardian Name *" id="fullName" required>
+                        <span class="form-error" id="nameError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" placeholder="Email Address *" id="email" required>
+                        <span class="form-error" id="emailError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="tel" placeholder="Phone Number *" id="phone" required>
+                        <span class="form-error" id="phoneError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" placeholder="Child's Name *" id="company" required>
+                        <span class="form-error" id="companyError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <select id="service" required>
+                            <option value="">Select Program Interest *</option>
+                            <option value="playgroup">Playgroup (18M-2Y)</option>
+                            <option value="nursery">Nursery (2Y-3Y)</option>
+                            <option value="lkg">Lower KG (3Y-4Y)</option>
+                            <option value="ukg">Upper KG (4Y-5Y)</option>
+                            <option value="extracurricular">Extracurricular Activities</option>
+                            <option value="franchise">Franchise Inquiry</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <span class="form-error" id="serviceError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea
+                            placeholder="Tell us about your interest in Just For Kidz and any questions you have *"
+                            id="message" rows="5" required></textarea>
+                        <span class="form-error" id="messageError"></span>
+                    </div>
+
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="agree" required>
+                        <label for="agree">I agree to the privacy policy and terms of service</label>
+                        <span class="form-error" id="agreeError"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large">Submit Inquiry</button>
+                    <p class="form-note">We'll contact you within 24 hours to schedule a visit</p>
+                </form>
+
+                <div class="contact-map">
+                    <h3>Visit Our Centers</h3>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.8220391041263!2d72.81385!3d19.07609!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c927519b1e15%3A0x7e9b5f8c1e4e4e4e!2sJust%20For%20Kidz%20Mumbai!5e0!3m2!1sen!2sin!4v1234567890"
+                        width="100%" height="400" style="border:0; border-radius: 12px;" allowfullscreen=""
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <h3>Just For Kidz</h3>
+                    </div>
+                    <p>Nurturing young minds through play-based learning, expert guidance, and a safe, joyful
+                        environment. 15+ years of excellence in preschool education.</p>
+                    <div class="social-links">
+                        <a href="#" target="_blank" rel="noopener noreferrer" title="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" title="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" title="Phone">
+                            <i class="fas fa-phone"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Programs</h4>
+                    <ul class="footer-links">
+                        <li><a href="#programs">Playgroup (18M-2Y)</a></li>
+                        <li><a href="#programs">Nursery (2Y-3Y)</a></li>
+                        <li><a href="#programs">Lower KG (3Y-4Y)</a></li>
+                        <li><a href="#programs">Upper KG (4Y-5Y)</a></li>
+                        <li><a href="#programs">Extracurricular</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>About</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">Our Story</a></li>
+                        <li><a href="impact.html">Why Us</a></li>
+                        <li><a href="testimonials.html">Parent Reviews</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>For Parents</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Curriculum Details</a></li>
+                        <li><a href="#">Admission Process</a></li>
+                        <li><a href="#">Parent Handbook</a></li>
+                        <li><a href="#">News & Updates</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Mumbai, India | Multiple Centers</p>
+                    <p><i class="fas fa-phone"></i> <a href="tel:+917506951113">+91 75069 51113</a></p>
+                    <p><i class="fas fa-envelope"></i> <a
+                            href="mailto:support@justforkidz.in">support@justforkidz.in</a></p>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Just For Kidz. All rights reserved. Nurturing Young Minds Since 2010.</p>
+                <p><a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a> | <a href="#">Parent Handbook</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

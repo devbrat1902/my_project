@@ -7,13 +7,31 @@
 // Initialization
 // ============================================
 document.addEventListener('DOMContentLoaded', function() {
+    // Clear any accidental inline styles on media that could hide them
+    clearInlineMediaStyles();
     initializeNavigation();
     initializeAnimations();
     initializeForm();
     initializeCounters();
     initializeMobileMenu();
     initializeVideoZoomScroll();
+    initializeFeatureRowAnimation();
+    initializeScrollBlurEffect();
 });
+
+// Remove inline filter/visibility/opacity styles from media elements (fixes images hidden by earlier scripts)
+function clearInlineMediaStyles() {
+    const media = document.querySelectorAll('img, picture, video');
+    media.forEach(el => {
+        try {
+            el.style.removeProperty('filter');
+            el.style.removeProperty('opacity');
+            el.style.removeProperty('visibility');
+        } catch (e) {
+            // ignore
+        }
+    });
+}
 
 // ============================================
 // Navigation
@@ -88,9 +106,22 @@ function initializeAnimations() {
     };
 
     const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
+        entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('in-view');
+                // For feature rows, add staggered animation
+                if (entry.target.classList.contains('feature-row')) {
+                    // Calculate delay based on position in parent
+                    const parent = entry.target.parentElement;
+                    const siblings = Array.from(parent.querySelectorAll('.feature-row'));
+                    const rowIndex = siblings.indexOf(entry.target);
+                    const delay = rowIndex * 100;
+                    
+                    setTimeout(() => {
+                        entry.target.classList.add('animate');
+                    }, delay);
+                } else {
+                    entry.target.classList.add('in-view');
+                }
                 observer.unobserve(entry.target);
             }
         });
@@ -99,7 +130,7 @@ function initializeAnimations() {
     // Observe all elements with animation classes
     document.querySelectorAll(
         '.solution-card, .testimonial-card, .contact-card, .impact-card, ' +
-        '.credential-badge, .about-image, .casestudy-video'
+        '.credential-badge, .about-image, .casestudy-video, .feature-row'
     ).forEach(element => {
         observer.observe(element);
     });
@@ -660,6 +691,37 @@ if (darkModeToggle) {
 }
 
 // ============================================
+// Feature Row Scroll Animation
+// ============================================
+function initializeFeatureRowAnimation() {
+    const featureRows = document.querySelectorAll('.feature-row');
+    
+    if (featureRows.length === 0) {
+        console.log('No feature rows found');
+        return;
+    }
+    
+    const observerOptions = {
+        threshold: 0.2,
+        rootMargin: '0px'
+    };
+    
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('animate');
+                }, index * 100);
+            }
+        });
+    }, observerOptions);
+    
+    featureRows.forEach((row) => {
+        observer.observe(row);
+    });
+}
+
+// ============================================
 // Video Zoom on Scroll
 // ============================================
 function initializeVideoZoomScroll() {
@@ -697,6 +759,78 @@ document.addEventListener('visibilitychange', function() {
         console.log('Page is visible');
     }
 });
+
+// ============================================
+// Scroll Blur Effect
+// ============================================
+function initializeScrollBlurEffect() {
+    // Narrow scope: only apply blur to feature rows
+    const elementsToBlur = document.querySelectorAll('.feature-row');
+    const elems = Array.from(elementsToBlur);
+
+    if (!elems.length) return;
+
+    // Respect users who prefer reduced motion and avoid heavy effects on small screens
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const smallScreen = window.innerWidth < 768;
+    if (prefersReduced || smallScreen) {
+        elems.forEach(el => {
+            el.style.removeProperty('filter');
+            el.style.removeProperty('--dynamic-blur');
+            el.classList.remove('blurred', 'will-change-blur');
+        });
+        return;
+    }
+
+    // Initialize CSS variable and will-change class for better performance
+    elems.forEach(el => {
+        el.style.setProperty('--dynamic-blur', '0px');
+        el.classList.add('will-change-blur');
+    });
+
+    let ticking = false;
+
+    function updateBlur() {
+        elems.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            const elementCenter = rect.top + rect.height / 2;
+            const windowCenter = window.innerHeight / 2;
+            const distance = Math.abs(elementCenter - windowCenter);
+            const maxDistance = window.innerHeight;
+            let blur = (distance / maxDistance) * 8; // up to 8px
+            blur = Math.min(blur, 8);
+
+            el.style.setProperty('--dynamic-blur', blur + 'px');
+            if (blur > 0.25) {
+                el.classList.add('blurred');
+            } else {
+                el.classList.remove('blurred');
+            }
+        });
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(updateBlur);
+            ticking = true;
+        }
+    }, { passive: true });
+
+    // Also update on resize to handle orientation/width changes
+    window.addEventListener('resize', debounce(() => {
+        // if screen becomes small, remove effects
+        if (window.innerWidth < 768) {
+            elems.forEach(el => {
+                el.style.removeProperty('filter');
+                el.style.removeProperty('--dynamic-blur');
+                el.classList.remove('blurred', 'will-change-blur');
+            });
+        } else {
+            updateBlur();
+        }
+    }, 200));
+}
 
 // ============================================
 // Export functions for external use
