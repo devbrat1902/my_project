@@ -123,27 +123,27 @@
                     <h3>Enrollment Inquiry Form</h3>
 
                     <div class="form-group">
-                        <input type="text" placeholder="Parent/Guardian Name *" id="fullName" required>
+                        <input type="text" placeholder="Parent/Guardian Name *" id="fullName" name="name" required>
                         <span class="form-error" id="nameError"></span>
                     </div>
 
                     <div class="form-group">
-                        <input type="email" placeholder="Email Address *" id="email" required>
+                        <input type="email" placeholder="Email Address *" id="email" name="email" required>
                         <span class="form-error" id="emailError"></span>
                     </div>
 
                     <div class="form-group">
-                        <input type="tel" placeholder="Phone Number *" id="phone" required>
+                        <input type="tel" placeholder="Phone Number *" id="phone" name="phone" required>
                         <span class="form-error" id="phoneError"></span>
                     </div>
 
                     <div class="form-group">
-                        <input type="text" placeholder="Child's Name *" id="company" required>
+                        <input type="text" placeholder="Child's Name *" id="company" name="company" required>
                         <span class="form-error" id="companyError"></span>
                     </div>
 
                     <div class="form-group">
-                        <select id="service" required>
+                        <select id="service" name="service" required>
                             <option value="">Select Program Interest *</option>
                             <option value="playgroup">Playgroup (18M-2Y)</option>
                             <option value="nursery">Nursery (2Y-3Y)</option>
@@ -158,8 +158,8 @@
 
                     <div class="form-group">
                         <textarea
-                            placeholder="Tell us about your interest in Just For Kidz and any questions you have *"
-                            id="message" rows="5" required></textarea>
+                            placeholder="Tell us about your interest in Just For Kidz and any questions you have (Optional)"
+                            id="message" name="message" rows="5"></textarea>
                         <span class="form-error" id="messageError"></span>
                     </div>
 
@@ -262,7 +262,7 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=6"></script>
 </body>
 
 </html>

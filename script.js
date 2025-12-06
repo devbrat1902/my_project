@@ -6,7 +6,7 @@
 // ============================================
 // Initialization
 // ============================================
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Clear any accidental inline styles on media that could hide them
     clearInlineMediaStyles();
     initializeNavigation();
@@ -41,7 +41,7 @@ function initializeNavigation() {
     const navLinks = document.querySelectorAll('nav a[href^="#"]');
 
     // Navbar scroll effect
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         if (window.scrollY > 100) {
             navbar.classList.add('scrolled');
         } else {
@@ -51,18 +51,18 @@ function initializeNavigation() {
 
     // Smooth scroll navigation
     navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             const targetSection = document.querySelector(targetId);
-            
+
             if (targetSection) {
                 const offsetTop = targetSection.offsetTop - 80;
                 window.scrollTo({
                     top: offsetTop,
                     behavior: 'smooth'
                 });
-                
+
                 // Close mobile menu if open
                 const mobileMenu = document.querySelector('.nav-links');
                 mobileMenu.classList.remove('active');
@@ -81,14 +81,14 @@ function initializeMobileMenu() {
     const navLinks = document.querySelector('.nav-links');
 
     if (menuToggle) {
-        menuToggle.addEventListener('click', function() {
+        menuToggle.addEventListener('click', function () {
             navLinks.classList.toggle('active');
             this.classList.toggle('active');
         });
 
         // Close menu on link click
         document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', function() {
+            link.addEventListener('click', function () {
                 navLinks.classList.remove('active');
                 menuToggle.classList.remove('active');
             });
@@ -105,7 +105,7 @@ function initializeAnimations() {
         rootMargin: '0px 0px -100px 0px'
     };
 
-    const observer = new IntersectionObserver(function(entries) {
+    const observer = new IntersectionObserver(function (entries) {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
                 // For feature rows, add staggered animation
@@ -115,7 +115,7 @@ function initializeAnimations() {
                     const siblings = Array.from(parent.querySelectorAll('.feature-row'));
                     const rowIndex = siblings.indexOf(entry.target);
                     const delay = rowIndex * 100;
-                    
+
                     setTimeout(() => {
                         entry.target.classList.add('animate');
                     }, delay);
@@ -147,7 +147,7 @@ function observeCounters() {
         threshold: 0.5
     };
 
-    const counterObserver = new IntersectionObserver(function(entries) {
+    const counterObserver = new IntersectionObserver(function (entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
                 const numbers = entry.target.querySelectorAll('.impact-number');
@@ -175,10 +175,10 @@ function animateCounter(element) {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
         const value = Math.floor(start + (target - start) * easeOutQuad(progress));
-        
-        element.textContent = value + (element.textContent.includes('%') ? '%' : 
-                                      element.textContent.includes('+') ? '+' : '');
-        
+
+        element.textContent = value + (element.textContent.includes('%') ? '%' :
+            element.textContent.includes('+') ? '+' : '');
+
         if (progress < 1) {
             requestAnimationFrame(updateCounter);
         }
@@ -195,19 +195,26 @@ function easeOutQuad(t) {
 // Form Validation and Submission
 // ============================================
 function initializeForm() {
-    const form = document.querySelector('.contact-form form');
-    if (!form) return;
+    console.log('🔄 initializeForm() called');
+    // FIX: Select the form correctly (it has class .contact-form, not nested inside it)
+    const form = document.querySelector('form.contact-form') || document.getElementById('contactForm');
+
+    if (!form) {
+        console.error('❌ Form not found in initializeForm');
+        return;
+    }
+    console.log('✅ Form found:', form);
 
     form.addEventListener('submit', handleFormSubmit);
 
     // Real-time validation
     const inputs = form.querySelectorAll('input, textarea, select');
     inputs.forEach(input => {
-        input.addEventListener('change', function() {
+        input.addEventListener('change', function () {
             validateField(this);
         });
 
-        input.addEventListener('blur', function() {
+        input.addEventListener('blur', function () {
             validateField(this);
         });
     });
@@ -251,9 +258,10 @@ function validateField(field) {
             errorMessage = 'Please select a service';
         }
     } else if (field.name === 'message') {
-        if (field.value.trim().length < 10) {
+        // Optional field: only validate if user enters text
+        if (field.value.trim().length > 0 && field.value.trim().length < 10) {
             isValid = false;
-            errorMessage = 'Please enter a message (at least 10 characters)';
+            errorMessage = 'Please enter at least 10 characters';
         }
     }
 
@@ -271,6 +279,7 @@ function validateField(field) {
 }
 
 function handleFormSubmit(e) {
+    console.log('🚀 handleFormSubmit triggered');
     e.preventDefault();
 
     const form = e.target;
@@ -292,6 +301,7 @@ function handleFormSubmit(e) {
     }
 
     if (!isFormValid) {
+        console.warn('⚠️ Form validation failed');
         return;
     }
 
@@ -307,15 +317,42 @@ function handleFormSubmit(e) {
         timestamp: new Date().toISOString()
     };
 
-    // Log form data (in production, send to server)
-    console.log('Form Data:', data);
+    console.log('📦 Sending data:', data);
 
-    // Show success message
-    showFormSuccess();
+    // Show loading state
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.textContent;
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
 
-    // Reset form
-    form.reset();
-    
+    // Send to backend
+    fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+        })
+        .then(result => {
+            console.log('Success:', result);
+            showFormSuccess();
+            // Wrap alert in setTimeout to ensure UI updates first and alert isn't blocked by race conditions
+            setTimeout(() => {
+                alert('Your inquiry has been sent successfully!');
+            }, 100);
+            form.reset();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showFormError('Failed to send message. Please try again later.');
+        })
+        .finally(() => {
+            submitBtn.textContent = originalBtnText;
+            submitBtn.disabled = false;
+        });
+
     // Clear error states
     fields.forEach(field => {
         field.style.borderColor = 'rgba(255, 255, 255, 0.2)';
@@ -327,7 +364,10 @@ function handleFormSubmit(e) {
 }
 
 function showFormSuccess() {
-    const formContainer = document.querySelector('.contact-form');
+    // FIX: The form itself has the class .contact-form
+    const form = document.querySelector('form.contact-form') || document.getElementById('contactForm');
+    if (!form) return;
+
     const successMessage = document.createElement('div');
     successMessage.className = 'form-success-message';
     successMessage.innerHTML = `
@@ -337,9 +377,9 @@ function showFormSuccess() {
             <strong>✓ Success!</strong> Your consultation request has been received. We'll contact you within 24 hours.
         </div>
     `;
-    
-    const form = formContainer.querySelector('form');
-    form.parentElement.insertBefore(successMessage, form);
+
+    // Insert before the first child of the form
+    form.insertBefore(successMessage, form.firstChild);
 
     // Remove success message after 5 seconds
     setTimeout(() => {
@@ -348,7 +388,10 @@ function showFormSuccess() {
 }
 
 function showFormError(message) {
-    const formContainer = document.querySelector('.contact-form');
+    // FIX: The form itself has the class .contact-form
+    const form = document.querySelector('form.contact-form') || document.getElementById('contactForm');
+    if (!form) return;
+
     const errorMessage = document.createElement('div');
     errorMessage.className = 'form-error-message';
     errorMessage.innerHTML = `
@@ -357,9 +400,9 @@ function showFormError(message) {
             <strong>⚠ Error:</strong> ${message}
         </div>
     `;
-    
-    const form = formContainer.querySelector('form');
-    form.parentElement.insertBefore(errorMessage, form);
+
+    // Insert before the first child of the form
+    form.insertBefore(errorMessage, form.firstChild);
 
     // Remove error message after 5 seconds
     setTimeout(() => {
@@ -370,11 +413,11 @@ function showFormError(message) {
 // ============================================
 // Dropdown Menu Handling
 // ============================================
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const dropdowns = document.querySelectorAll('.dropdown');
-    
+
     dropdowns.forEach(dropdown => {
-        dropdown.addEventListener('mouseenter', function() {
+        dropdown.addEventListener('mouseenter', function () {
             const menu = this.querySelector('.dropdown-menu');
             if (menu) {
                 menu.style.visibility = 'visible';
@@ -382,7 +425,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        dropdown.addEventListener('mouseleave', function() {
+        dropdown.addEventListener('mouseleave', function () {
             const menu = this.querySelector('.dropdown-menu');
             if (menu) {
                 menu.style.visibility = 'hidden';
@@ -430,10 +473,10 @@ function initializeLazyLoading() {
 // ============================================
 function initializeParallax() {
     const parallaxElements = document.querySelectorAll('[data-parallax]');
-    
+
     if (parallaxElements.length === 0) return;
 
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         parallaxElements.forEach(element => {
             const speed = element.dataset.parallax;
             const yPos = window.scrollY * speed;
@@ -447,7 +490,7 @@ function initializeParallax() {
 // ============================================
 function enhanceSmoothScroll() {
     document.querySelectorAll('a[href="#"]').forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             if (this.getAttribute('href') === '#') {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -461,9 +504,9 @@ function enhanceSmoothScroll() {
 // ============================================
 function initializeTooltips() {
     const tooltipElements = document.querySelectorAll('[data-tooltip]');
-    
+
     tooltipElements.forEach(element => {
-        element.addEventListener('mouseenter', function() {
+        element.addEventListener('mouseenter', function () {
             const tooltip = document.createElement('div');
             tooltip.className = 'tooltip';
             tooltip.textContent = this.dataset.tooltip;
@@ -481,11 +524,11 @@ function initializeTooltips() {
                 left: ${this.offsetLeft}px;
             `;
             document.body.appendChild(tooltip);
-            
+
             this.tooltipElement = tooltip;
         });
 
-        element.addEventListener('mouseleave', function() {
+        element.addEventListener('mouseleave', function () {
             if (this.tooltipElement) {
                 this.tooltipElement.remove();
                 delete this.tooltipElement;
@@ -533,7 +576,7 @@ function debounce(func, wait) {
 // Throttle function for performance
 function throttle(func, limit) {
     let inThrottle;
-    return function(...args) {
+    return function (...args) {
         if (!inThrottle) {
             func.apply(this, args);
             inThrottle = true;
@@ -554,7 +597,7 @@ function isInViewport(element) {
 }
 
 // Add CSS class on scroll
-const addClassOnScroll = throttle(function() {
+const addClassOnScroll = throttle(function () {
     const elements = document.querySelectorAll('.fade-in-on-scroll');
     elements.forEach(element => {
         if (isInViewport(element)) {
@@ -568,7 +611,7 @@ window.addEventListener('scroll', addClassOnScroll);
 // ============================================
 // Keyboard Navigation
 // ============================================
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', function (e) {
     // ESC key closes dropdowns
     if (e.key === 'Escape') {
         const navLinks = document.querySelector('.nav-links');
@@ -587,14 +630,14 @@ document.addEventListener('keydown', function(e) {
 // ============================================
 // Print Styles Handler
 // ============================================
-window.addEventListener('beforeprint', function() {
+window.addEventListener('beforeprint', function () {
     // Hide elements that shouldn't print
     document.querySelectorAll('.no-print').forEach(el => {
         el.style.display = 'none';
     });
 });
 
-window.addEventListener('afterprint', function() {
+window.addEventListener('afterprint', function () {
     // Restore elements after print
     document.querySelectorAll('.no-print').forEach(el => {
         el.style.display = '';
@@ -612,7 +655,7 @@ if ('serviceWorker' in navigator) {
 // ============================================
 // Accessibility Enhancements
 // ============================================
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Add ARIA labels
     const buttons = document.querySelectorAll('.btn');
     buttons.forEach(button => {
@@ -631,7 +674,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const lastElement = focusableElements[focusableElements.length - 1];
 
     // Trap focus in modal (when needed)
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
         if (e.key === 'Tab') {
             const modal = document.querySelector('.modal.active');
             if (modal) {
@@ -657,7 +700,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function trackEvent(eventName, eventData = {}) {
     // Log events for analytics
     console.log(`Event: ${eventName}`, eventData);
-    
+
     // Uncomment when ready to send to analytics service
     // if (window.gtag) {
     //     gtag('event', eventName, eventData);
@@ -665,7 +708,7 @@ function trackEvent(eventName, eventData = {}) {
 }
 
 // Track button clicks
-document.addEventListener('click', function(e) {
+document.addEventListener('click', function (e) {
     if (e.target.classList.contains('btn')) {
         trackEvent('button_click', {
             button_text: e.target.textContent.trim(),
@@ -679,7 +722,7 @@ document.addEventListener('click', function(e) {
 // ============================================
 const darkModeToggle = document.querySelector('[data-dark-mode-toggle]');
 if (darkModeToggle) {
-    darkModeToggle.addEventListener('click', function() {
+    darkModeToggle.addEventListener('click', function () {
         document.documentElement.classList.toggle('dark-mode');
         localStorage.setItem('theme', document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light');
     });
@@ -695,18 +738,18 @@ if (darkModeToggle) {
 // ============================================
 function initializeFeatureRowAnimation() {
     const featureRows = document.querySelectorAll('.feature-row');
-    
+
     if (featureRows.length === 0) {
         console.log('No feature rows found');
         return;
     }
-    
+
     const observerOptions = {
         threshold: 0.2,
         rootMargin: '0px'
     };
-    
-    const observer = new IntersectionObserver(function(entries) {
+
+    const observer = new IntersectionObserver(function (entries) {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
                 setTimeout(() => {
@@ -715,7 +758,7 @@ function initializeFeatureRowAnimation() {
             }
         });
     }, observerOptions);
-    
+
     featureRows.forEach((row) => {
         observer.observe(row);
     });
@@ -728,7 +771,7 @@ function initializeVideoZoomScroll() {
     const heroVideo = document.querySelector('.hero-video');
     if (!heroVideo) return;
 
-    window.addEventListener('scroll', throttle(function() {
+    window.addEventListener('scroll', throttle(function () {
         const scrollPercent = (window.scrollY / window.innerHeight) * 100;
         const zoomAmount = 1 + (scrollPercent / 500); // Progressive zoom
         heroVideo.style.transform = `scale(${Math.min(zoomAmount, 1.5)})`;
@@ -742,7 +785,7 @@ function initializeScrollProgress() {
     const progressBar = document.querySelector('.scroll-progress');
     if (!progressBar) return;
 
-    window.addEventListener('scroll', throttle(function() {
+    window.addEventListener('scroll', throttle(function () {
         const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
         const scrolled = (window.scrollY / windowHeight) * 100;
         progressBar.style.width = scrolled + '%';
@@ -752,7 +795,7 @@ function initializeScrollProgress() {
 // ============================================
 // Page Visibility API
 // ============================================
-document.addEventListener('visibilitychange', function() {
+document.addEventListener('visibilitychange', function () {
     if (document.hidden) {
         console.log('Page is hidden');
     } else {

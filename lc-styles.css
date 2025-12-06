@@ -1,0 +1,242 @@
+/* Lead Capture Modal Styles */
+.lc-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  /* Darker background */
+  backdrop-filter: blur(5px);
+  /* Blur effect */
+  z-index: 2147483647;
+  /* Max z-index */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: auto;
+  /* Ensure it captures all clicks */
+}
+
+.lc-modal-overlay.lc-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lc-modal-container {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.lc-modal-overlay.lc-visible .lc-modal-container {
+  transform: translateY(0);
+}
+
+.lc-close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.2s;
+}
+
+.lc-close-button:hover {
+  color: #333;
+}
+
+.lc-modal-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.lc-modal-title {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.lc-modal-description {
+  color: #666;
+  font-size: 1rem;
+}
+
+.lc-form-group {
+  margin-bottom: 1.2rem;
+}
+
+.lc-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.lc-input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.lc-input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.lc-error-message {
+  color: #dc3545;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+  display: none;
+}
+
+.lc-phone-wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.lc-country-select {
+  position: relative;
+  width: 120px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #fff;
+}
+
+.lc-selected-country {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem;
+  gap: 8px;
+}
+
+.lc-flag {
+  width: 20px;
+  height: 15px;
+  object-fit: cover;
+}
+
+.lc-country-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-top: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  display: none;
+  z-index: 10;
+}
+
+.lc-country-dropdown.lc-show {
+  display: block;
+}
+
+.lc-country-option {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.lc-country-option:hover {
+  background-color: #f8f9fa;
+}
+
+.lc-checkbox-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.lc-checkbox {
+  margin-top: 4px;
+}
+
+.lc-checkbox-label {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+.lc-submit-btn {
+  width: 100%;
+  padding: 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.lc-submit-btn:hover {
+  background-color: #0056b3;
+}
+
+.lc-submit-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.lc-success-message {
+  text-align: center;
+  padding: 2rem 0;
+  display: none;
+}
+
+.lc-success-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+/* Floating CTA */
+.lc-floating-cta {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #007bff;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 50px;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.lc-floating-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
