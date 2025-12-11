@@ -131,26 +131,17 @@ app.post('/api/lead', async (req, res) => {
   try {
     const { email, phone, pageUrl, referrer, userAgent, timezone } = req.body;
 
-    // Validation
-    if (!email || !phone) {
+    // Validation - only phone is required now
+    if (!phone) {
       return res.status(400).json({
         error: 'Missing required fields',
-        message: 'Email and phone are required'
-      });
-    }
-
-    // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return res.status(400).json({
-        error: 'Invalid email',
-        message: 'Please provide a valid email address'
+        message: 'Phone number is required'
       });
     }
 
     // Prepare data for Supabase
     const leadData = {
-      email: email.toLowerCase().trim(),
+      email: email ? email.toLowerCase().trim() : null,
       phone: phone.trim(),
       page_url: pageUrl || '',
       referrer: referrer || '',
@@ -160,7 +151,7 @@ app.post('/api/lead', async (req, res) => {
     };
 
     console.log('--- New Lead Submission ---');
-    console.log('Email:', leadData.email);
+    console.log('Email:', leadData.email || 'N/A');
     console.log('Phone:', leadData.phone);
     console.log('Page URL:', leadData.page_url);
     console.log('Timezone:', leadData.timezone);
@@ -197,7 +188,6 @@ app.post('/api/lead', async (req, res) => {
     const emailHtml = `
       <h2>New Lead Capture Submission</h2>
       <table style="border-collapse: collapse; width: 100%;">
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Email:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${leadData.email}</td></tr>
         <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Phone:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${leadData.phone}</td></tr>
         <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Page:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${leadData.page_url}</td></tr>
         <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Time:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${new Date().toLocaleString()}</td></tr>
@@ -205,11 +195,8 @@ app.post('/api/lead', async (req, res) => {
     `;
     sendAdminEmail('New Lead Captured', emailHtml);
 
-    // Send Confirmation to User
-    sendUserConfirmationEmail(leadData.email, 'Friend');
-
     // Send WhatsApp to Owner
-    const waMessage = `🔔 New *Lead Capture*!\n\n📧 Email: ${leadData.email}\n☎️ Phone: ${leadData.phone}\n🔗 Page: ${leadData.page_url}\n⏰ Time: ${new Date().toLocaleTimeString()}`;
+    const waMessage = `🔔 New *Lead Capture*!\n\n☎️ Phone: ${leadData.phone}\n🔗 Page: ${leadData.page_url}\n⏰ Time: ${new Date().toLocaleTimeString()}`;
     sendWhatsAppToOwner(waMessage);
 
     console.log('---------------------------');

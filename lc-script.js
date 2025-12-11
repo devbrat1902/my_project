@@ -23,11 +23,6 @@
                         </div>
 
                         <form id="lcLeadForm">
-                            <div class="lc-form-group">
-                                <label for="lcEmail" class="lc-label">Email Address <span style="color:red">*</span></label>
-                                <input type="email" id="lcEmail" class="lc-input" placeholder="you@example.com" required>
-                                <div class="lc-error-message" id="lcEmailError">Please enter a valid email address.</div>
-                            </div>
 
                             <div class="lc-form-group">
                                 <label for="lcPhone" class="lc-label">Phone Number <span style="color:red">*</span></label>
@@ -109,7 +104,6 @@
     const closeBtn = document.getElementById('lcCloseBtn');
     const floatingCta = document.getElementById('lcFloatingCta');
     const form = document.getElementById('lcLeadForm');
-    const emailInput = document.getElementById('lcEmail');
     const phoneInput = document.getElementById('lcPhone');
     const countrySelect = document.getElementById('lcCountrySelect');
     const selectedCountry = document.getElementById('lcSelectedCountry');
@@ -234,14 +228,6 @@
       // Basic Validation
       let isValid = true;
 
-      // Email
-      if (!emailInput.value || !emailInput.value.includes('@')) {
-        document.getElementById('lcEmailError').style.display = 'block';
-        isValid = false;
-      } else {
-        document.getElementById('lcEmailError').style.display = 'none';
-      }
-
       // Phone - validate 10 digits for India
       const phoneDigits = phoneInput.value.replace(/\D/g, '');
       if (!phoneDigits || phoneDigits.length < 10) {
@@ -261,7 +247,6 @@
 
       // Prepare Data
       const payload = {
-        email: emailInput.value,
         phone: currentCountryCode + ' ' + phoneInput.value,
         pageUrl: window.location.href,
         referrer: document.referrer,
@@ -286,28 +271,6 @@
         if (response.ok) {
           // Success - save to localStorage and enable closing
           localStorage.setItem('lcFormSubmitted', 'true');
-
-          // ✨ Send confirmation email to visitor using EmailJS
-          if (typeof emailjs !== 'undefined') {
-            emailjs.send(
-              'service_rrly1n5',          // Your Service ID
-              'template_i1qhg3h',         // Your Template ID
-              {
-                user_name: emailInput.value.split('@')[0],  // User's name
-                email: emailInput.value,                     // CRITICAL: Template uses {{email}} in To Email field
-                message: 'Phone: ' + currentCountryCode + ' ' + phoneInput.value  // Phone info
-              }
-            ).then(
-              function (response) {
-                console.log('✅ Confirmation email sent!', response);
-              },
-              function (error) {
-                console.error('❌ Email failed:', error);
-                console.error('Error details:', JSON.stringify(error, null, 2));
-                // Form still shows success even if email fails
-              }
-            );
-          }
 
           // Show close button now that form is submitted
           closeBtn.style.display = 'block';
