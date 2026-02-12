@@ -18,7 +18,11 @@
       "use": "@vercel/static"
     },
     {
-      "src": "*.{png,jpg,jpeg,gif,svg,avif,mp4}",
+      "src": "*.{png,jpg,jpeg,gif,svg,avif,mp4,xml}",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "robots.txt",
       "use": "@vercel/static"
     }
   ],

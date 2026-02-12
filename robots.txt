@@ -10,4 +10,4 @@ Allow: /get-started.html
 Allow: /franchise.html
 Allow: /college-cta.html
 
-Sitemap: https://www.justforkidz.in/sitemap.xml
+Sitemap: https://my-project-tan-alpha.vercel.app/sitemap.xml
