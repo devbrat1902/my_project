@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /about.html
+Allow: /solutions.html
+Allow: /impact.html
+Allow: /testimonials.html
+Allow: /contact.html
+Allow: /get-started.html
+Allow: /franchise.html
+Allow: /college-cta.html
+
+Sitemap: https://www.justforkidz.in/sitemap.xml
