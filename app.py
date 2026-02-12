@@ -171,19 +171,22 @@ def capture_lead():
         timezone = data.get('timezone', '')
         
         # Validation
-        if not email or not phone:
+        if not phone:
             return jsonify({
                 'error': 'Missing required fields',
-                'message': 'Email and phone are required'
+                'message': 'Phone number is required'
             }), 400
         
-        # Email validation
-        email_regex = r'^[^\s@]+@[^\s@]+\.[^\s@]+$'
-        if not re.match(email_regex, email):
-            return jsonify({
-                'error': 'Invalid email',
-                'message': 'Please provide a valid email address'
-            }), 400
+        # Email validation (only if provided)
+        if email:
+            email_regex = r'^[^\s@]+@[^\s@]+\.[^\s@]+$'
+            if not re.match(email_regex, email):
+                return jsonify({
+                    'error': 'Invalid email',
+                    'message': 'Please provide a valid email address'
+                }), 400
+        else:
+            email = None # Explicitly set to None for Supabase nullable column
         
         # Prepare data for Supabase
         lead_data = {

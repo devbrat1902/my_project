@@ -141,7 +141,7 @@ app.post('/api/lead', async (req, res) => {
 
     // Prepare data for Supabase
     const leadData = {
-      email: email ? email.toLowerCase().trim() : null,
+      email: (email && email.trim()) ? email.toLowerCase().trim() : null,
       phone: phone.trim(),
       page_url: pageUrl || '',
       referrer: referrer || '',

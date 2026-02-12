@@ -236,10 +236,12 @@ function validateField(field) {
             errorMessage = 'Please enter your full name';
         }
     } else if (field.name === 'email') {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(field.value)) {
-            isValid = false;
-            errorMessage = 'Please enter a valid email address';
+        if (field.value.trim() !== '') {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(field.value)) {
+                isValid = false;
+                errorMessage = 'Please enter a valid email address';
+            }
         }
     } else if (field.name === 'phone') {
         const phoneRegex = /^[\d\s\-\(\)\+]+$/;
