@@ -3,10 +3,7 @@
   "version": "1.0.0",
   "description": "Lead capture system with Supabase integration for Just For Kidz",
   "main": "api/server.js",
-  "scripts": {
-    "start": "node api/server.js",
-    "dev": "nodemon api/server.js"
-  },
+  "scripts": {},
   "keywords": [
     "lead-capture",
     "supabase",
