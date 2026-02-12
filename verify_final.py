@@ -18,6 +18,8 @@ def check_url(url):
 base = "https://my-project-tan-alpha.vercel.app"
 urls = [
     f"{base}/sitemap_index.xml",
+    f"{base}/index.html",
+    f"{base}/index",
     f"{base}/",
     f"{base}/about",
     f"{base}/solutions",
