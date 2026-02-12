@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://my-project-tan-alpha.vercel.app/sitemap_index.xml
