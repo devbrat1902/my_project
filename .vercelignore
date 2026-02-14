@@ -1,0 +1,11 @@
+node_modules
+.env
+.venv
+*.py
+*.md
+*.backup
+test-email.js
+test-whatsapp.js
+api/server.js
+api/app.py
+*.mp4

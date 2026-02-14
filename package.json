@@ -2,7 +2,7 @@
   "name": "just-for-kidz-lead-capture",
   "version": "1.0.0",
   "description": "Lead capture system with Supabase integration for Just For Kidz",
-  "main": "api/server.js",
+  "version": "1.0.0",
   "scripts": {},
   "keywords": [
     "lead-capture",

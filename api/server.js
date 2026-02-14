@@ -119,11 +119,24 @@ const sendWhatsAppToOwner = async (message) => {
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '..', 'public'))); // Serve static files
+app.use(express.static(path.join(__dirname, '..'))); // Serve static files from project root
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Server is running' });
+});
+
+// GET handler for /api/lead (browser visits)
+app.get('/api/lead', (req, res) => {
+  res.json({
+    status: 'ok',
+    message: 'Lead API is active. Use POST to submit a lead.',
+    endpoints: {
+      'POST /api/lead': 'Submit a new lead (requires phone field)',
+      'POST /api/contact': 'Submit a contact inquiry',
+      'GET /api/health': 'Health check'
+    }
+  });
 });
 
 // API Route for Lead Capture with Supabase

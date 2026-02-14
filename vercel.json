@@ -4,8 +4,8 @@
   "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api/server.js"
+      "source": "/",
+      "destination": "/home.html"
     }
   ],
   "headers": [
