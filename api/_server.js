@@ -119,7 +119,7 @@ const sendWhatsAppToOwner = async (message) => {
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '..'))); // Serve static files from project root
+app.use(express.static(path.join(__dirname, '..', 'public'))); // Serve static files from public directory
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
