@@ -6,6 +6,5 @@ node_modules
 *.backup
 test-email.js
 test-whatsapp.js
-api/server.js
 api/app.py
 *.mp4
