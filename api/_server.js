@@ -121,6 +121,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public'))); // Serve static files from public directory
 
+// Redirect root to home.html for local dev
+app.get('/', (req, res) => {
+  res.redirect('/home.html');
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Server is running' });
