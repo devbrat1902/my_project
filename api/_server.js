@@ -131,6 +131,37 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Server is running' });
 });
 
+// Gallery API Endpoint
+app.get('/api/gallery', async (req, res) => {
+  try {
+    const galleryUrl = process.env.GALLERY_SUPABASE_URL;
+    const galleryKey = process.env.GALLERY_SUPABASE_KEY;
+
+    if (!galleryUrl || !galleryKey) {
+      return res.json([]); // Fallback
+    }
+
+    const gallerySupabase = createClient(galleryUrl, galleryKey);
+
+    const { data, error } = await gallerySupabase
+      .from('gallery_images')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('❌ Gallery Database Error:', error);
+      if (error.code === 'PGRST116' || error.message.includes('schema cache')) {
+        return res.json([]);
+      }
+      return res.status(500).json({ error: 'Database error', message: error.message });
+    }
+    res.json(data);
+  } catch (error) {
+    console.error('❌ Gallery API Error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // GET handler for /api/lead (browser visits)
 app.get('/api/lead', (req, res) => {
   res.json({
