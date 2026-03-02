@@ -890,41 +890,28 @@ window.PEI = {
 };
 
 // ============================================
-// ANNOUNCEMENT BAR
+// ANNOUNCEMENT BAR — sticky, always visible, click scrolls to #admissions
 // ============================================
 (function () {
     const bar = document.getElementById('announcementBar');
-    const closeBtn = document.getElementById('annClose');
     const learnBtn = document.getElementById('annLearnMore');
 
     if (!bar) return;
 
-    // Helper: smooth scroll to #admissions
     function scrollToAdmissions(e) {
         e && e.preventDefault();
         const target = document.getElementById('admissions');
         if (target) {
-            const offset = target.getBoundingClientRect().top + window.scrollY - 80;
+            const offset = target.getBoundingClientRect().top + window.scrollY - 120;
             window.scrollTo({ top: offset, behavior: 'smooth' });
         }
     }
 
     // Click anywhere on bar → scroll to admissions
-    bar.addEventListener('click', function (e) {
-        if (e.target === closeBtn) return; // don't scroll if clicking X
-        scrollToAdmissions(e);
-    });
+    bar.addEventListener('click', scrollToAdmissions);
 
     // "Learn More" button
     if (learnBtn) learnBtn.addEventListener('click', scrollToAdmissions);
-
-    // Close button hides bar
-    if (closeBtn) {
-        closeBtn.addEventListener('click', function (e) {
-            e.stopPropagation();
-            bar.classList.add('ann-hidden');
-        });
-    }
 })();
 
 // ============================================
