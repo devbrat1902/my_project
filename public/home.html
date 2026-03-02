@@ -73,6 +73,20 @@
             </div>
         </div>
     </nav>
+
+    <!-- ===== ANNOUNCEMENT BAR ===== -->
+    <div class="announcement-bar" id="announcementBar" role="banner" aria-label="Admissions announcement">
+        <div class="ann-inner">
+            <div class="ann-text">
+                <span class="ann-icon">🎓</span>
+                <span>Admissions Open for 2026 – <strong>Enroll Your Child Today!</strong></span>
+            </div>
+            <a href="#admissions" class="ann-btn" id="annLearnMore">Learn More <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <button class="ann-close" id="annClose" aria-label="Close announcement">✕</button>
+    </div>
+    <!-- ===== END ANNOUNCEMENT BAR ===== -->
+
     <main>
 
         <!-- Hero Section with Video Background -->
@@ -389,7 +403,8 @@
                             </div>
                             <h2 class="beyond-heading">Safe &amp; Joyful Daycare for Your Little One</h2>
                             <p class="beyond-subheading">Because your peace of mind matters — we care for children aged
-                                <strong>6 months to 12 years</strong>, every step of the day.</p>
+                                <strong>6 months to 12 years</strong>, every step of the day.
+                            </p>
 
                             <div class="daycare-timings">
                                 <i class="fas fa-calendar-check"></i>
@@ -716,8 +731,128 @@
         </section>
         -->
 
+
+        <!-- ===== ADMISSIONS SECTION ===== -->
+        <section id="admissions" class="admissions-section">
+            <div class="container-fluid">
+
+                <!-- Header -->
+                <div class="section-header" style="margin-bottom:3rem;">
+                    <div class="adm-badge"><i class="fas fa-graduation-cap"></i> Admissions 2026</div>
+                    <h2>Now Enrolling for Kindergarten &amp; Primary Grades</h2>
+                    <p>Give your child a nurturing and inspiring educational journey. Limited seats available.</p>
+                </div>
+
+                <!-- Two-column grid -->
+                <div class="admissions-grid">
+
+                    <!-- LEFT: Image Gallery -->
+                    <div class="adm-images">
+                        <div class="adm-img-wrap">
+                            <img src="admission-kids.png" alt="Happy children learning at Just For Kidz" loading="lazy">
+                        </div>
+                        <div class="adm-img-wrap">
+                            <img src="admission-classroom.png" alt="Classroom activity at Just For Kidz" loading="lazy">
+                        </div>
+                        <div class="adm-img-wrap">
+                            <img src="admission-outdoor.png" alt="Children enjoying outdoor play at Just For Kidz"
+                                loading="lazy">
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: Content + Form -->
+                    <div class="adm-content">
+
+                        <!-- Headline & Bullets -->
+                        <div>
+                            <h3 class="adm-headline">Now Enrolling for Kindergarten &amp; Primary Grades</h3>
+                            <p class="adm-subtext">Give your child a nurturing and inspiring educational journey.<br>
+                                <strong>Limited seats available</strong> — secure your spot today.
+                            </p>
+                            <ul class="adm-bullets">
+                                <li><span class="adm-check"><i class="fas fa-check"></i></span> Experienced and caring
+                                    teachers</li>
+                                <li><span class="adm-check"><i class="fas fa-check"></i></span> Creative learning
+                                    environment</li>
+                                <li><span class="adm-check"><i class="fas fa-check"></i></span> Safe and child-friendly
+                                    campus</li>
+                                <li><span class="adm-check"><i class="fas fa-check"></i></span> Holistic development
+                                    approach</li>
+                            </ul>
+                        </div>
+
+                        <!-- Enquiry Form Card -->
+                        <div class="adm-form-card">
+                            <h4 class="adm-form-title"><i class="fas fa-paper-plane" style="color:#10b981;"></i> Submit
+                                an Enquiry</h4>
+
+                            <!-- Form fields -->
+                            <form id="admEnquiryForm" autocomplete="off">
+                                <div class="adm-form-row">
+                                    <div class="adm-field">
+                                        <label for="adm_parent_name">Parent Name</label>
+                                        <input type="text" id="adm_parent_name" name="adm_parent_name"
+                                            placeholder="e.g. Priya Sharma" required>
+                                    </div>
+                                    <div class="adm-field">
+                                        <label for="adm_child_name">Child Name</label>
+                                        <input type="text" id="adm_child_name" name="adm_child_name"
+                                            placeholder="e.g. Aarav" required>
+                                    </div>
+                                </div>
+
+                                <div class="adm-form-row">
+                                    <div class="adm-field">
+                                        <label for="adm_child_age">Child Age</label>
+                                        <select id="adm_child_age" name="adm_child_age" required>
+                                            <option value="" disabled selected>Select age</option>
+                                            <option value="18m-2y">18 months – 2 years</option>
+                                            <option value="2y-3y">2 – 3 years</option>
+                                            <option value="3y-4y">3 – 4 years</option>
+                                            <option value="4y-5y">4 – 5 years</option>
+                                            <option value="5y+">5 years &amp; above</option>
+                                        </select>
+                                    </div>
+                                    <div class="adm-field">
+                                        <label for="adm_phone">Phone Number</label>
+                                        <input type="tel" id="adm_phone" name="adm_phone" placeholder="+91 98765 43210"
+                                            required>
+                                    </div>
+                                </div>
+
+                                <div class="adm-field">
+                                    <label for="adm_email">Email Address</label>
+                                    <input type="email" id="adm_email" name="adm_email" placeholder="you@example.com">
+                                </div>
+
+                                <div class="adm-field">
+                                    <label for="adm_message">Message</label>
+                                    <textarea id="adm_message" name="adm_message" rows="3"
+                                        placeholder="Any questions or special requirements..."></textarea>
+                                </div>
+
+                                <button type="submit" class="adm-submit-btn" id="admSubmitBtn">
+                                    <i class="fas fa-paper-plane"></i> Submit Enquiry
+                                </button>
+                            </form>
+
+                            <!-- Success message (hidden by default) -->
+                            <div class="adm-success" id="admSuccess">
+                                <div class="adm-success-icon"><i class="fas fa-check"></i></div>
+                                <h4>Enquiry Sent! 🎉</h4>
+                                <p>Thank you! Our admissions team will reach out within 24 hours.</p>
+                            </div>
+                        </div>
+
+                    </div><!-- /.adm-content -->
+                </div><!-- /.admissions-grid -->
+            </div>
+        </section>
+        <!-- ===== END ADMISSIONS SECTION ===== -->
+
         <!-- Contact Section -->
         <section id="contact" class="contact-section">
+
             <div class="container-fluid">
                 <div class="section-header">
                     <h2>Let's Start Your Transformation</h2>

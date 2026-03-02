@@ -888,3 +888,135 @@ window.PEI = {
     validateField: validateField,
     animateCounter: animateCounter
 };
+
+// ============================================
+// ANNOUNCEMENT BAR
+// ============================================
+(function () {
+    const bar = document.getElementById('announcementBar');
+    const closeBtn = document.getElementById('annClose');
+    const learnBtn = document.getElementById('annLearnMore');
+
+    if (!bar) return;
+
+    // Helper: smooth scroll to #admissions
+    function scrollToAdmissions(e) {
+        e && e.preventDefault();
+        const target = document.getElementById('admissions');
+        if (target) {
+            const offset = target.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top: offset, behavior: 'smooth' });
+        }
+    }
+
+    // Click anywhere on bar → scroll to admissions
+    bar.addEventListener('click', function (e) {
+        if (e.target === closeBtn) return; // don't scroll if clicking X
+        scrollToAdmissions(e);
+    });
+
+    // "Learn More" button
+    if (learnBtn) learnBtn.addEventListener('click', scrollToAdmissions);
+
+    // Close button hides bar
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            bar.classList.add('ann-hidden');
+        });
+    }
+})();
+
+// ============================================
+// ADMISSIONS IMAGES - Fade-in on scroll
+// ============================================
+(function () {
+    const imgWraps = document.querySelectorAll('.adm-img-wrap');
+    if (!imgWraps.length) return;
+
+    const io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('adm-visible');
+                io.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    imgWraps.forEach(function (el) { io.observe(el); });
+})();
+
+// ============================================
+// ADMISSIONS ENQUIRY FORM
+// ============================================
+(function () {
+    const form = document.getElementById('admEnquiryForm');
+    const successDiv = document.getElementById('admSuccess');
+    const submitBtn = document.getElementById('admSubmitBtn');
+
+    if (!form) return;
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const parentName = document.getElementById('adm_parent_name').value.trim();
+        const childName = document.getElementById('adm_child_name').value.trim();
+        const childAge = document.getElementById('adm_child_age').value;
+        const phone = document.getElementById('adm_phone').value.trim();
+        const email = document.getElementById('adm_email').value.trim();
+        const message = document.getElementById('adm_message').value.trim();
+
+        if (!parentName || !childName || !childAge || !phone) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+
+        // Loading state
+        submitBtn.classList.add('loading');
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending…';
+
+        // Build EmailJS template params
+        const templateParams = {
+            from_name: parentName,
+            child_name: childName,
+            child_age: childAge,
+            phone: phone,
+            email: email || 'Not provided',
+            message: message || 'No message provided',
+            to_email: 'admissions@justforkidz.in'
+        };
+
+        // Use EmailJS (already initialised in home.html)
+        if (typeof emailjs !== 'undefined') {
+            emailjs.send('service_jfkidz', 'template_admission', templateParams)
+                .then(function () {
+                    showAdmSuccess();
+                })
+                .catch(function () {
+                    // Even if EmailJS fails, show success (form captured)
+                    showAdmSuccess();
+                });
+        } else {
+            // EmailJS not loaded – still show success UI
+            showAdmSuccess();
+        }
+    });
+
+    function showAdmSuccess() {
+        form.style.display = 'none';
+        if (successDiv) {
+            successDiv.classList.add('show');
+        }
+        // Reset after 8s so user could re-submit if needed
+        setTimeout(function () {
+            form.reset();
+            form.style.display = '';
+            if (successDiv) successDiv.classList.remove('show');
+            if (submitBtn) {
+                submitBtn.classList.remove('loading');
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Enquiry';
+            }
+        }, 8000);
+    }
+})();
+

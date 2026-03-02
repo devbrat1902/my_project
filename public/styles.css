@@ -1,4 +1,4 @@
-/* ============================================
+﻿/* ============================================
    PROFESSIONAL EXCELLENCE INSTITUTE
    Premium Enterprise Website
    Advanced CSS with Animations & Video
@@ -956,7 +956,7 @@ p {
 }
 
 .feature-list li:before {
-    content: '✓';
+    content: 'âœ“';
     position: absolute;
     left: 0;
     color: var(--success);
@@ -2449,7 +2449,7 @@ p {
     padding-bottom: 3rem;
 }
 
-/* ── Shared Block Layout ── */
+/* â”€â”€ Shared Block Layout â”€â”€ */
 .beyond-block {
     background: #fff;
     border-radius: 24px;
@@ -2481,7 +2481,7 @@ p {
     background: linear-gradient(90deg, #9C27B0, #2196F3, #4CAF50, #FF6B6B);
 }
 
-/* ── Shared Header / Badge ── */
+/* â”€â”€ Shared Header / Badge â”€â”€ */
 .beyond-block-header {
     text-align: center;
     margin-bottom: 2.5rem;
@@ -2537,7 +2537,7 @@ p {
     margin-top: 2rem;
 }
 
-/* ── ECA Card Grid ── */
+/* â”€â”€ ECA Card Grid â”€â”€ */
 .eca-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -2612,7 +2612,7 @@ p {
     margin: 0;
 }
 
-/* ── Buttons ── */
+/* â”€â”€ Buttons â”€â”€ */
 .btn-eca {
     background: linear-gradient(135deg, #FF9500 0%, #E91E63 100%);
     color: #fff;
@@ -2670,7 +2670,7 @@ p {
     box-shadow: 0 10px 25px rgba(91, 33, 182, 0.45);
 }
 
-/* ── Daycare Block ── */
+/* â”€â”€ Daycare Block â”€â”€ */
 .daycare-block {
     background: linear-gradient(135deg, #fffbf0 0%, #fff0f5 100%);
 }
@@ -2789,7 +2789,7 @@ p {
     font-size: 0.8125rem;
 }
 
-/* ── Daycare Visual Side ── */
+/* â”€â”€ Daycare Visual Side â”€â”€ */
 .daycare-visual {
     display: flex;
     flex-direction: column;
@@ -2909,7 +2909,7 @@ p {
     transform: translateY(-2px);
 }
 
-/* ── Pre Primary Block ── */
+/* â”€â”€ Pre Primary Block â”€â”€ */
 .preprimary-block {
     background: linear-gradient(135deg, #f3e5f5 0%, #e8eaf6 100%);
 }
@@ -3084,7 +3084,7 @@ p {
     color: #fff;
 }
 
-/* ── Responsive ── */
+/* â”€â”€ Responsive â”€â”€ */
 @media (max-width: 900px) {
 
     .daycare-inner,
@@ -3130,3 +3130,566 @@ p {
         grid-template-columns: 1fr;
     }
 }
+
+/* ============================================
+   ANNOUNCEMENT BAR
+   ============================================ */
+@keyframes annSlideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.announcement-bar {
+    width: 100%;
+    background: linear-gradient(90deg, #5B21B6 0%, #7C3AED 50%, #9333EA 100%);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    position: relative;
+    z-index: 999;
+    border-radius: 0 0 14px 14px;
+    box-shadow: 0 6px 24px rgba(91, 33, 182, 0.28);
+    animation: annSlideDown 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+/* subtle shimmer sweep */
+.announcement-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -60%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    animation: annShimmer 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes annShimmer {
+    0% {
+        left: -60%;
+    }
+
+    60% {
+        left: 120%;
+    }
+
+    100% {
+        left: 120%;
+    }
+}
+
+.ann-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.ann-text {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.975rem;
+    font-weight: 500;
+    flex: 1;
+}
+
+.ann-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.ann-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(252, 211, 77, 0.9);
+    border: 1.5px solid #FCD34D;
+    color: #5B21B6;
+    padding: 0.45rem 1.2rem;
+    border-radius: 100px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.ann-btn:hover {
+    background: #FDE047;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(252, 211, 77, 0.5);
+}
+
+.ann-close {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 50%;
+    transition: color 0.2s, background 0.2s;
+    flex-shrink: 0;
+    margin-left: 0.5rem;
+    line-height: 1;
+}
+
+.ann-close:hover {
+    color: #FCD34D;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.announcement-bar.ann-hidden {
+    display: none;
+}
+
+@media (max-width: 640px) {
+    .ann-inner {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .ann-text {
+        font-size: 0.875rem;
+    }
+
+    .ann-btn {
+        font-size: 0.8rem;
+        padding: 0.4rem 1rem;
+    }
+}
+
+/* ============================================
+   ADMISSIONS SECTION
+   ============================================ */
+.admissions-section {
+    background: linear-gradient(160deg, #FEF9E7 0%, #fff 60%, #FEF9E7 100%);
+    padding: 5rem 0 5.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative blobs */
+.admissions-section::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 360px;
+    height: 360px;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.admissions-section::after {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    left: -60px;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(252, 211, 77, 0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.admissions-section .section-header h2 {
+    color: var(--text-dark);
+}
+
+.admissions-section .section-header p {
+    color: var(--primary-light);
+}
+
+/* Badge pill */
+.adm-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: linear-gradient(90deg, rgba(91, 33, 182, 0.1), rgba(124, 58, 237, 0.15));
+    color: #5B21B6;
+    border: 1px solid rgba(91, 33, 182, 0.2);
+    padding: 0.35rem 1rem;
+    border-radius: 100px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+}
+
+/* --- Two-column layout --- */
+.admissions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    position: relative;
+    z-index: 1;
+}
+
+/* --- Image Gallery column --- */
+.adm-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+}
+
+.adm-img-wrap {
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(91, 33, 182, 0.10);
+    position: relative;
+    background: #f3e8ff;
+    /* Fade-in start state */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s;
+}
+
+.adm-img-wrap:first-child {
+    grid-column: span 2;
+    height: 280px;
+}
+
+.adm-img-wrap:not(:first-child) {
+    height: 200px;
+}
+
+.adm-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    border-radius: 18px;
+}
+
+.adm-img-wrap:hover img {
+    transform: scale(1.07);
+}
+
+.adm-img-wrap.adm-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.adm-img-wrap:hover {
+    box-shadow: 0 14px 40px rgba(91, 33, 182, 0.18);
+}
+
+.adm-img-wrap:nth-child(2) {
+    transition-delay: 0.1s;
+}
+
+.adm-img-wrap:nth-child(3) {
+    transition-delay: 0.2s;
+}
+
+/* --- Content + Form column --- */
+.adm-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.adm-headline {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    font-weight: 800;
+    color: var(--text-dark);
+    line-height: 1.25;
+    margin: 0 0 0.5rem;
+}
+
+.adm-subtext {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: var(--text-light);
+    line-height: 1.75;
+    margin: 0 0 1rem;
+}
+
+.adm-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+
+.adm-bullets li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    line-height: 1.5;
+}
+
+.adm-bullets li .adm-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7C3AED, #5B21B6);
+    color: #fff;
+    font-size: 0.65rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+    box-shadow: 0 2px 8px rgba(91, 33, 182, 0.3);
+}
+
+/* --- Enquiry Form Card (Glassmorphism) --- */
+.adm-form-card {
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(91, 33, 182, 0.15);
+    border-radius: 24px;
+    padding: 2rem 2rem 2.25rem;
+    box-shadow: 0 8px 40px rgba(91, 33, 182, 0.10), 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.adm-form-card::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle, rgba(252, 211, 77, 0.25), transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.adm-form-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+
+.adm-form-title i {
+    color: var(--accent);
+}
+
+/* Floating label input group */
+.adm-field {
+    position: relative;
+    margin-bottom: 1.25rem;
+}
+
+.adm-field input,
+.adm-field textarea,
+.adm-field select {
+    width: 100%;
+    background: #FEF9E7;
+    border: 1.5px solid rgba(91, 33, 182, 0.18);
+    border-radius: 12px;
+    padding: 1.1rem 1rem 0.45rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+    resize: none;
+    appearance: none;
+}
+
+.adm-field select {
+    padding: 0.85rem 1rem;
+    cursor: pointer;
+}
+
+.adm-field input:focus,
+.adm-field textarea:focus,
+.adm-field select:focus {
+    border-color: #7C3AED;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+}
+
+.adm-field label {
+    position: absolute;
+    top: 0.48rem;
+    left: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #7C3AED;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    pointer-events: none;
+}
+
+.adm-field textarea {
+    min-height: 90px;
+    padding-top: 1.3rem;
+}
+
+/* Two-col row inside form */
+.adm-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+/* Submit button */
+.adm-submit-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%);
+    color: #5B21B6;
+    border: none;
+    border-radius: 14px;
+    padding: 0.95rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+    box-shadow: 0 6px 20px rgba(252, 211, 77, 0.35);
+    letter-spacing: 0.3px;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.adm-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(252, 211, 77, 0.5);
+}
+
+.adm-submit-btn:active {
+    transform: scale(0.98);
+}
+
+.adm-submit-btn.loading {
+    opacity: 0.75;
+    pointer-events: none;
+}
+
+/* Success message */
+.adm-success {
+    display: none;
+    text-align: center;
+    padding: 2rem 1rem;
+    animation: admSuccessPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes admSuccessPop {
+    from {
+        opacity: 0;
+        transform: scale(0.75);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.adm-success.show {
+    display: block;
+}
+
+.adm-success-icon {
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, #7C3AED, #5B21B6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.2rem;
+    box-shadow: 0 10px 30px rgba(91, 33, 182, 0.3);
+}
+
+.adm-success-icon i {
+    color: #FCD34D;
+    font-size: 2rem;
+}
+
+.adm-success h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    color: var(--text-dark);
+    margin-bottom: 0.4rem;
+}
+
+.adm-success p {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .admissions-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .adm-images {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 640px) {
+    .admissions-section {
+        padding: 3.5rem 0;
+    }
+
+    .adm-img-wrap:first-child {
+        height: 220px;
+    }
+
+    .adm-img-wrap:not(:first-child) {
+        height: 160px;
+    }
+
+    .adm-form-card {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .adm-form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .adm-headline {
+        font-size: 1.45rem;
+    }
+}
+
