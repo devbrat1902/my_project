@@ -26,7 +26,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Sora:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Sticky Header: Navbar + Announcement Bar -->
+    <div class="sticky-header">
     <nav class="navbar" id="mainNav">
         <div class="container-fluid">
             <div class="nav-wrapper">
@@ -57,6 +58,18 @@
             </div>
         </div>
     </nav>
+    <!-- ===== ANNOUNCEMENT BAR ===== -->
+    <div class="announcement-bar" id="announcementBar" role="banner" aria-label="Admissions announcement">
+        <div class="ann-inner">
+            <div class="ann-text">
+                <i class="fas fa-bullhorn ann-icon"></i>
+                <span>Admissions Open for 2026 - <strong>Enroll Your Child Today!</strong></span>
+            </div>
+            <a href="home.html#admissions" class="ann-btn" id="annLearnMore">Learn More <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+    <!-- ===== END ANNOUNCEMENT BAR ===== -->
+    </div><!-- /.sticky-header -->
 
     <!-- Hero Section -->
     <section class="hero-section franchise-hero" style="min-height: 50vh; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);">
